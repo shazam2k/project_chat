@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projeto1.demo.entities.LogIn;
 import projeto1.demo.mapper.LogInMapper;
+import projeto1.demo.model.LogInInputModel;
 import projeto1.demo.model.LogInModel;
 import projeto1.demo.repository.LogInRepository;
 
@@ -21,13 +22,6 @@ public class LogInService {
     @Autowired
     LogInMapper logInMapper;
 
-//    public boolean (String userName, String passCode){
-//
-//
-//
-//        return;
-//    }
-
         public List<LogInModel> listarLogIn (){
 
             log.info("Iniciando busca por livros");
@@ -35,13 +29,41 @@ public class LogInService {
             List<LogInModel> lista1 = new ArrayList<>();
 
             for(LogIn logIn : logInRepository.listarlogIn()){
-                LogInModel logInModel = logInMapper.LogInParaModel(logIn);
+                LogInModel logInModel = logInMapper.LogInToModel(logIn);
                 lista1.add(logInModel);
-
+                log.info(logIn.getPassCode());
+                log.info(logIn.getUserName());
             }
 
             log.info("{} Registros de livros encontrados", lista1.size());
 
             return lista1;
         }
+
+    public String signIn(LogInInputModel input) {
+        List<LogInModel> lista1 = listarLogIn();
+
+        for (LogInModel logInModel : lista1) {
+            String pass_code_input = input.getPassCode();
+            String user_name_input = input.getUserName();
+
+
+            String pass_Code = logInModel.getPassCode();
+            String user_name = logInModel.getUserName();
+
+            log.info(pass_Code);
+            log.info(user_name);
+
+            log.info("Input username: " + user_name_input);
+            log.info("Input password: " + pass_code_input);
+
+            if (pass_Code.equals(pass_code_input) && user_name.equals(user_name_input)) {
+                log.info("true");
+                return "True";
+            }
+        }
+
+        return "False";
+    }
+
 }

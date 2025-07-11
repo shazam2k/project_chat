@@ -5,8 +5,10 @@ import projeto1.demo.entities.LogIn;
 import projeto1.demo.model.LogInModel;
 
 @Mapper(componentModel = "spring")
-public abstract class LogInMapper {
 
-    public abstract LogInModel LogInParaModel(LogIn logIn);
+public interface LogInMapper {
+
+
+    public abstract LogInModel LogInToModel(LogIn logIn);
 
 }

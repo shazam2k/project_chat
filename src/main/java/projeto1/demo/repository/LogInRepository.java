@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface LogInRepository extends JpaRepository<LogIn, Integer> {
 
-    @Query("Select i from LogIn i")
+    @Query("SELECT i from LogIn i")
     List<LogIn> listarlogIn();
 }

@@ -5,20 +5,20 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(schema = "projeto_chat", name = "logIn")
+@Table(schema = "projeto_chat", name = "login")
 @Getter
 @Setter
 
 public class LogIn {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "username")
+    @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "passCode")
+    @Column(name = "pass_code")
     private  String passCode;
 }
