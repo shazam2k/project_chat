@@ -14,5 +14,8 @@ public class LogInModel {
 
     private String userName;
 
-    private  String passCode;
+    private String passCode;
+
+    private String role;
+
 }

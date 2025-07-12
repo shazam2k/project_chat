@@ -16,17 +16,17 @@ public class logInController {
     @Autowired
     LogInService logInService;
 
-    @PostMapping("/login")
-    @ResponseStatus(HttpStatus.OK)
-    public String logIn (@RequestBody LogInInputModel input){
-        return logInService.signIn(input);
-
-    }
+//    @PostMapping("/login")
+//    @ResponseStatus(HttpStatus.OK)
+//    public String logIn (@RequestBody LogInInputModel input){
+//        return logInService.signIn(input);
+//
+//    }
 
     @PostMapping("/signIn")
     @ResponseStatus(HttpStatus.OK)
-    public String signIn (@RequestBody String userName, @RequestBody String passCode){
-        return "";
+    public LogInModel signIn (@RequestBody LogInInputModel input){
+        return logInService.saveSignIn(input);
     }
 
     @GetMapping("/login/listar")
@@ -34,5 +34,12 @@ public class logInController {
     public List<LogInModel> lista(){
         return logInService.listarLogIn();
     }
+
+    @GetMapping("/home")
+    @ResponseStatus(HttpStatus.OK)
+    public String teste(){
+        return "Hello World";
+    }
+
 
 }

@@ -2,7 +2,9 @@ package projeto1.demo.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import projeto1.demo.entities.LogIn;
 import projeto1.demo.mapper.LogInMapper;
 import projeto1.demo.model.LogInInputModel;
@@ -40,30 +42,49 @@ public class LogInService {
             return lista1;
         }
 
-    public String signIn(LogInInputModel input) {
-        List<LogInModel> lista1 = listarLogIn();
+//    public String signIn(LogInInputModel input) {
+//        List<LogInModel> lista1 = listarLogIn();
+//
+//        for (LogInModel logInModel : lista1) {
+//            String pass_code_input = input.getPassCode();
+//            String user_name_input = input.getUserName();
+//
+//
+//            String pass_Code = logInModel.getPassCode();
+//            String user_name = logInModel.getUserName();
+//
+//            log.info(pass_Code);
+//            log.info(user_name);
+//
+//            log.info("Input username: " + user_name_input);
+//            log.info("Input password: " + pass_code_input);
+//
+//            if (pass_Code.equals(pass_code_input) && user_name.equals(user_name_input)) {
+//                log.info("true");
+//                return "True";
+//            }
+//        }
+//
+//        return "Senha incorreta, tente de novo ou faça cadrastro";
+//    }
 
-        for (LogInModel logInModel : lista1) {
-            String pass_code_input = input.getPassCode();
-            String user_name_input = input.getUserName();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    @Transactional
+    public LogInModel saveSignIn (LogInInputModel input){
 
-            String pass_Code = logInModel.getPassCode();
-            String user_name = logInModel.getUserName();
+        log.info("Entrou");
 
-            log.info(pass_Code);
-            log.info(user_name);
+        LogIn logIn = logInMapper.logInInputToLogIn(input);
+        logIn.setPassCode(passwordEncoder.encode(input.getPassCode()));
 
-            log.info("Input username: " + user_name_input);
-            log.info("Input password: " + pass_code_input);
+        LogIn logIn2 = logInRepository.save(logIn);
 
-            if (pass_Code.equals(pass_code_input) && user_name.equals(user_name_input)) {
-                log.info("true");
-                return "True";
-            }
-        }
+        LogInModel logIn3 = logInMapper.LogInToModel(logIn);
 
-        return "False";
+        log.info("Salvou");
+
+        return logIn3;
     }
-
 }

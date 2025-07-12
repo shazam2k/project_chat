@@ -5,9 +5,12 @@ import org.springframework.data.jpa.repository.Query;
 import projeto1.demo.entities.LogIn;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LogInRepository extends JpaRepository<LogIn, Integer> {
 
     @Query("SELECT i from LogIn i")
     List<LogIn> listarlogIn();
+
+    Optional<LogIn> findByUserName(String userName);
 }

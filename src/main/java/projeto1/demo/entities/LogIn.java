@@ -14,11 +14,14 @@ public class LogIn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "user_name")
     private String userName;
 
     @Column(name = "pass_code")
-    private  String passCode;
+    private String passCode;
+
+    @Column(name = "role")
+    private String role;
 }
